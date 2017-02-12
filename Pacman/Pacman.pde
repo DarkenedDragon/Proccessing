@@ -15,10 +15,10 @@ void field(){
   rect(0, height, 10, -height/3);//bottom left edge
   rect(width-10, height, 10, -height/3);//bottom right edge
   
-  rect(0, height/3, width/4, -10);
-  rect(0, 2*(height/3), width/4, -10);
-  rect(width, height/3, -width/4, -10);
-  rect(width, 2*(height/3), -width/4, -10);
+  rect(0, height/3, width/4, -10);//top left intrusion
+  rect(0, 2*(height/3), width/4, -10);//botton left intrusion
+  rect(width, height/3, -width/4, -10);//top right intrusion
+  rect(width, 2*(height/3), -width/4, -10);//bottom right intrusion
   
   stroke(0,0,255);  
   fill(0,0,255);
