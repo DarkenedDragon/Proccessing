@@ -1,22 +1,17 @@
 class SnakeObject{
-int x = 0;
-int y = 0;
-int xspeed;
+int x = 200;
+int y = 200;
+int xspeed = 20;
 int yspeed;
 int scale = 20;
 int foodx = ((int)random(0, width/scale)*scale);
 int foody= (int)random(0, height/scale)*scale;
-int[][] Tail = new int[][]{
-};
+int[][] Tail = new int[0][2];
 int snakeLength = 1;
 int lastSnakeLength = snakeLength;
+int clock = 1;
 void move(){
   switch(direction()){
-    case 0://no key ditected
-    xspeed = 0;
-    yspeed = 0;
-    break;
-  
     case 1:
     xspeed = 0;
     yspeed = -scale;
@@ -43,9 +38,9 @@ x = constrain(x, 0, width-scale);
 y = constrain(y, 0, height-scale);
 //draws the snake
 
-rect(x, y, scale, scale);
+//rect(x, y, scale, scale);
+snakeMove();
 
-show();
 }
 
 int direction(){
@@ -63,46 +58,37 @@ int direction(){
   }
   return direction;
 }
-void updateSnake(){
-  /*
-  puedocode:
-  1. Find if the snake has been lengthened
-  2. copy the current snake tail into an new array
-  3. advance the new array 1 element
-  4. copy back into Tail
-  5. add the new point to tail
-  */
-  /*
-if(lastSnakeLength != snakeLength){
-  lastSnakeLength = snakeLength;
+
+void snakeMove(){
   int[][] arr = new int[snakeLength][2];
-for(int i = 1;i<arr.length-1;i++){
-  arr[i][0] = arr[i+1][0];
-  arr[i][1] = arr[i+1][1];
+  twoDArrayCopy(Tail, arr);
+  for(int i = arr.length-1;i>0;i--){
+  //System.out.println(i);
+  System.out.println(arr[i][1]);
+  System.out.println(arr[i-1][1]);
+  arr[i][0] = arr[i-1][0];
+  arr[i][1] = arr[i-1][1];
+    //System.out.println("Array x : " + arr[i][0]);
 }
-  int[][] Tail = new int[snakeLength][2];
+Tail = new int[snakeLength][2];
 for(int j = 1;j<arr.length;j++){
-    Tail[j][0] = arr[j][0];
-    Tail[j][1] = arr[j][1];
-  }
-  */
-  int[][] Tail = new int[snakeLength][2];
-  Tail[0][0] = x;
-  Tail[0][1] = y;
-//}
+  Tail[j][0] = arr[j][0];
+  Tail[j][1] = arr[j][1];
 }
-void show(){
-  for(int i =0;i<Tail.length;i++){
-    rect(Tail[i][0], Tail[i][1], scale, scale);
+Tail[0][0] = x;
+Tail[0][1] = y;
+for(int g =0;g<Tail.length;g++){
+    rect(Tail[g][0], Tail[g][1], scale, scale);
   }
+  clock++;
 }
 void food(){
   if(x == foodx && y == foody){
     snakeLength++;
-    updateSnake();
     foodx = (int)random(0, width/scale)*scale;
     foody = (int)random(0, height/scale)*scale;
-  //rect(foodx, foody, scale, scale);
+    foodx = constrain(foodx, scale, width-scale-scale);
+    foody = constrain(foody, scale, height-scale-scale);
   }    
     fill(255, 0, 0);
     rect(foodx, foody, scale, scale);
@@ -110,9 +96,16 @@ void food(){
 
 }
 void twoDArrayCopy(int[][] arrayFrom, int[][] arrayTo){
-  for(int i = 0;i<arrayFrom.length-1;i++){
+  for(int i = 0;i<arrayFrom.length;i++){
     arrayTo[i][0] = arrayFrom[i][0];
     arrayTo[i][1] = arrayFrom[i][1];
+  }
+}
+boolean dead(){
+  if((x < scale || x >= width-scale) || (y < scale || y >= height-scale)){
+    return true;
+  }else{
+    return false;
   }
 }
 }//end class
