@@ -9,7 +9,7 @@ int foody= (int)random(0, height/scale)*scale;
 int[][] Tail = new int[0][2];
 int snakeLength = 1;
 int lastSnakeLength = snakeLength;
-int clock = 1;
+int opstDir = 0;
 void move(){
   switch(direction()){
     case 1:
@@ -45,14 +45,19 @@ snakeMove();
 
 int direction(){
   int direction = 0;
-  if(keyCode == UP){
+  
+  if((keyCode == UP || keyCode == 'W') && opstDir != 3){
     direction = 1;
-  }else if(keyCode == DOWN){
+    opstDir = 1;
+  }else if((keyCode == DOWN || keyCode == 'S') && opstDir != 1){
     direction = 3;
-  }else if(keyCode == LEFT){
+    opstDir = 3;
+  }else if((keyCode == LEFT || keyCode == 'A') && opstDir != 2){
     direction = 4;
-  }else if(keyCode == RIGHT){
+    opstDir = 4;
+  }else if((keyCode == RIGHT || keyCode == 'D') && opstDir != 4){
     direction = 2;
+    opstDir = 2;
   }else{
     direction = 0;
   }
@@ -80,7 +85,7 @@ Tail[0][1] = y;
 for(int g =0;g<Tail.length;g++){
     rect(Tail[g][0], Tail[g][1], scale, scale);
   }
-  clock++;
+
 }
 void food(){
   if(x == foodx && y == foody){
