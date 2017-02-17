@@ -10,6 +10,9 @@ int[][] Tail = new int[0][2];
 int snakeLength = 1;
 int lastSnakeLength = snakeLength;
 int opstDir = 0;
+
+
+
 void move(){
   switch(direction()){
     case 1:
@@ -68,9 +71,6 @@ void snakeMove(){
   int[][] arr = new int[snakeLength][2];
   twoDArrayCopy(Tail, arr);
   for(int i = arr.length-1;i>0;i--){
-  //System.out.println(i);
-  System.out.println(arr[i][1]);
-  System.out.println(arr[i-1][1]);
   arr[i][0] = arr[i-1][0];
   arr[i][1] = arr[i-1][1];
     //System.out.println("Array x : " + arr[i][0]);
@@ -88,6 +88,8 @@ for(int g =0;g<Tail.length;g++){
 
 }
 void food(){
+  foodx = constrain(foodx, scale, width-scale-scale);
+  foody = constrain(foody, scale, height-scale-scale);
   if(x == foodx && y == foody){
     snakeLength++;
     foodx = (int)random(0, width/scale)*scale;
@@ -107,6 +109,16 @@ void twoDArrayCopy(int[][] arrayFrom, int[][] arrayTo){
   }
 }
 boolean dead(){
+
+  for(int i = 1;i<Tail.length;i++){
+    System.out.println("Tail.length : " + Tail.length);
+    System.out.println("Tail[i][0] : " + Tail[i][0]);
+    System.out.println("Tail[0][0] : " + Tail[0][0]);
+    if((Tail.length > 1) && (Tail[0][0] == Tail[i][0]) && (Tail[0][1] == Tail[i][1])){
+      return true;
+    }
+  
+  }
   if((x < scale || x >= width-scale) || (y < scale || y >= height-scale)){
     return true;
   }else{
