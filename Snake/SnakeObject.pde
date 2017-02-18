@@ -44,6 +44,8 @@ y = constrain(y, 0, height-scale);
 //rect(x, y, scale, scale);
 snakeMove();
 
+fill(255);
+text(snakeLength, width - 2*(scale) -10, 3*scale);
 }
 
 int direction(){
@@ -86,6 +88,7 @@ for(int g =0;g<Tail.length;g++){
     rect(Tail[g][0], Tail[g][1], scale, scale);
   }
 
+
 }
 void food(){
   foodx = constrain(foodx, scale, width-scale-scale);
@@ -111,9 +114,7 @@ void twoDArrayCopy(int[][] arrayFrom, int[][] arrayTo){
 boolean dead(){
 
   for(int i = 1;i<Tail.length;i++){
-    System.out.println("Tail.length : " + Tail.length);
-    System.out.println("Tail[i][0] : " + Tail[i][0]);
-    System.out.println("Tail[0][0] : " + Tail[0][0]);
+    
     if((Tail.length > 1) && (Tail[0][0] == Tail[i][0]) && (Tail[0][1] == Tail[i][1])){
       return true;
     }
