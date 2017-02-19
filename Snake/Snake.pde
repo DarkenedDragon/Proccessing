@@ -2,10 +2,10 @@ boolean gameStart = false;
 SnakeObject snake = new SnakeObject(0);
 SnakeObject snake2;
 PFont font;
-int state = 0;
-int foodx;
-int foody;
 int scale = 20;
+int state = 0;
+int foodx = (int)random(0, width/scale)*scale;
+int foody = (int)random(0, height/scale)*scale;
 boolean multiplayer = false;
 void setup(){
   //make size a multiple of scale
@@ -42,6 +42,7 @@ void draw(){
   snake.move();
   if(multiplayer == true){
     snake2.move();
+    collision();
   }
   
   food();
@@ -94,8 +95,6 @@ void titleScreen(){
     snake2 = new SnakeObject(2);
     multiplayer = true;
   }
-  //test item
-  rect(0,0,100,100);
   //creates the 1 player button
   fill(255);
   rect(width/2 - (textWidth("1 Player")/2 + 10),height/2, textWidth("1 Player") + 20, 50);
@@ -124,8 +123,6 @@ void titleScreen(){
     frameRate(20);
     gameStart = true;
   }
-  //test item
-  rect(0,0,100,100);
   //creates the 1 player button
   fill(255);
   rect(width/2 - (textWidth("Easy")/2 + 10),height/2, textWidth("Easy") + 20, 50);
@@ -147,4 +144,13 @@ boolean overMode(float x, float y, float xSize, float ySize){
     return true;
   }
     return false;
+}
+void collision(){
+ 
+  for(int i = 1;i<Math.min(snake.Tail.length, snake2.Tail.length);i++){
+  if(snake.Tail.length > 1 && snake.Tail[i][0] == snake2.Tail[i][0] && 
+snake.Tail[i][1] == snake2.Tail[i][1]){
+System.exit(0);
+}
+  }
 }
