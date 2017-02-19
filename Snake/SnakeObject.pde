@@ -1,9 +1,10 @@
 class SnakeObject{
-int x = 200;
-int y = 200;
+  int scale = 20;
+int player;
+int x = (int)random(scale, width/scale)*scale;
+int y = (int)random(scale, height/scale)*scale;
 int xspeed = 20;
 int yspeed;
-int scale = 20;
 int foodx = ((int)random(0, width/scale)*scale);
 int foody= (int)random(0, height/scale)*scale;
 int[][] Tail = new int[0][2];
@@ -11,8 +12,9 @@ int snakeLength = 1;
 int lastSnakeLength = snakeLength;
 int opstDir = 0;
 
-
-
+SnakeObject(int player){
+  this.player = player;
+}
 void move(){
   switch(direction()){
     case 1:
@@ -43,14 +45,20 @@ y = constrain(y, 0, height-scale);
 
 //rect(x, y, scale, scale);
 snakeMove();
-
+if(player == 0){
 fill(255);
 text(snakeLength, width - 2*(scale) -10, 3*scale);
+}else{
+fill(0,255,0);
+text(snakeLength,2*(scale) +10, 3*scale);
+}
 }
 
 int direction(){
   int direction = 0;
   
+if(multiplayer == false){
+
   if((keyCode == UP || keyCode == 'W') && opstDir != 3){
     direction = 1;
     opstDir = 1;
@@ -66,7 +74,42 @@ int direction(){
   }else{
     direction = 0;
   }
+}else if(player == 0){
+if((keyCode == UP ) && opstDir != 3){
+    direction = 1;
+    opstDir = 1;
+  }else if((keyCode == DOWN ) && opstDir != 1){
+    direction = 3;
+    opstDir = 3;
+  }else if((keyCode == LEFT) && opstDir != 2){
+    direction = 4;
+    opstDir = 4;
+  }else if((keyCode == RIGHT) && opstDir != 4){
+    direction = 2;
+    opstDir = 2;
+  }else{
+    direction = 0;
+  }
+
+}else{
+  if((keyCode == 'W') && opstDir != 3){
+    direction = 1;
+    opstDir = 1;
+  }else if((keyCode == 'S') && opstDir != 1){
+    direction = 3;
+    opstDir = 3;
+  }else if((keyCode == 'A') && opstDir != 2){
+    direction = 4;
+    opstDir = 4;
+  }else if((keyCode == 'D') && opstDir != 4){
+    direction = 2;
+    opstDir = 2;
+  }else{
+    direction = 0;
+  }
+}
   return direction;
+
 }
 
 void snakeMove(){
@@ -85,11 +128,17 @@ for(int j = 1;j<arr.length;j++){
 Tail[0][0] = x;
 Tail[0][1] = y;
 for(int g =0;g<Tail.length;g++){
+  if(player == 0){
+    fill(255);
+  }else{
+    fill(0, 255, 0);
+  }
     rect(Tail[g][0], Tail[g][1], scale, scale);
   }
 
 
 }
+/*
 void food(){
   foodx = constrain(foodx, scale, width-scale-scale);
   foody = constrain(foody, scale, height-scale-scale);
@@ -105,6 +154,7 @@ void food(){
     fill(255);
 
 }
+*/
 void twoDArrayCopy(int[][] arrayFrom, int[][] arrayTo){
   for(int i = 0;i<arrayFrom.length;i++){
     arrayTo[i][0] = arrayFrom[i][0];
