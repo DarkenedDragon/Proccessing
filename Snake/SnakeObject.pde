@@ -1,10 +1,10 @@
 class SnakeObject{
   int scale = 20;
 int player;
-int x = (int)random(scale, width/scale)*scale;
-int y = (int)random(scale, height/scale)*scale;
+int x = (int)random(5, width/scale - 5)*scale;
+int y = (int)random(5, height/scale - 5)*scale;
 int xspeed = 20;
-int yspeed;
+int yspeed = 0;
 int foodx = ((int)random(0, width/scale)*scale);
 int foody= (int)random(0, height/scale)*scale;
 int[][] Tail = new int[0][2];
@@ -14,6 +14,8 @@ int opstDir = 0;
 
 SnakeObject(int player){
   this.player = player;
+  this.xspeed = 20;
+  this.yspeed = 0;
 }
 void move(){
   switch(direction()){
@@ -138,23 +140,7 @@ for(int g =0;g<Tail.length;g++){
 
 
 }
-/*
-void food(){
-  foodx = constrain(foodx, scale, width-scale-scale);
-  foody = constrain(foody, scale, height-scale-scale);
-  if(x == foodx && y == foody){
-    snakeLength++;
-    foodx = (int)random(0, width/scale)*scale;
-    foody = (int)random(0, height/scale)*scale;
-    foodx = constrain(foodx, scale, width-scale-scale);
-    foody = constrain(foody, scale, height-scale-scale);
-  }    
-    fill(255, 0, 0);
-    rect(foodx, foody, scale, scale);
-    fill(255);
 
-}
-*/
 void twoDArrayCopy(int[][] arrayFrom, int[][] arrayTo){
   for(int i = 0;i<arrayFrom.length;i++){
     arrayTo[i][0] = arrayFrom[i][0];
