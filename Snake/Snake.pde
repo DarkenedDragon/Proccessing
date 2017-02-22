@@ -69,6 +69,14 @@ void draw(){
   rect(width/2-textWidth("Play Again?")/2, height/2-70, textWidth("Play Again?"), 50);
   fill(255, 0,0);
   textAlign(CENTER);
+  fill(0);
+  if(multiplayer == true){
+    text("PLAYER 1's SCORE: " + snake.snakeLength, width/2, 200);
+    text("PLAYER 2's SCORE: " + snake2.snakeLength, width/2, 250);
+  }else{
+    text("SCORE: " + snake.snakeLength, width/2, 200);
+  }
+  fill(255, 0, 0);
   text("Play Again?", width/2, height/2-32);
   if(mousePressed && overMode(width/2-textWidth("Play Again?")/2, height/2-70, textWidth("Play Again?"), 50)==true){
     gameStart = 0;
